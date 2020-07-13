@@ -6,37 +6,35 @@ using System.Threading.Tasks;
 
 namespace ShapeTask
 {
-    public class Square : IShape
+    public class Rectangle : IShape
     {
-        public double SideLength
-        {
-            get;
-            set;
-        }
+        public double Side1 { get; set; }
+        public double Side2 { get; set; }
 
-        public Square(double sideLength)
+        public Rectangle(double side1, double side2)
         {
-            SideLength = sideLength;
+            Side1 = side1;
+            Side2 = side2;
         }
 
         public double GetWidth()
         {
-            return SideLength;
+            return Math.Min(Side1, Side2);
         }
 
         public double GetHight()
         {
-            return SideLength;
+            return Math.Max(Side1, Side2);
         }
 
         public double GetArea()
         {
-            return Math.Pow(SideLength, 2);
+            return Side1 * Side2;
         }
 
         public double GetPerimeter()
         {
-            return 4 * SideLength;
+            return (2 * Side1) + (2 * Side2);
         }
     }
 }
