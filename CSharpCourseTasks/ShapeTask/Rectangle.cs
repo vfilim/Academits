@@ -36,5 +36,32 @@ namespace ShapeTask
         {
             return (2 * Side1) + (2 * Side2);
         }
+
+        public override string ToString()
+        {
+            return "the rectangle with one side = " + Side1 + " and another side = " + Side2;
+        }
+
+        public override bool Equals(object o)
+        {
+            if (ReferenceEquals(o, this))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(o, null) || o.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            Rectangle r = (Rectangle)o;
+
+            return (Side1 == r.Side1) && (Side2 == r.Side2);
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)(Side1 * Side2);
+        }
     }
 }

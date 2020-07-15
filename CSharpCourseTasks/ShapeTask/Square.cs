@@ -38,5 +38,32 @@ namespace ShapeTask
         {
             return 4 * SideLength;
         }
+
+        public override string ToString()
+        {
+            return "the square with side = " + SideLength;
+        }
+
+        public override bool Equals(object o)
+        {
+            if (ReferenceEquals(o, this))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(o, null) || o.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            Square s = (Square)o;
+
+            return SideLength == s.SideLength;
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)SideLength;
+        }
     }
 }

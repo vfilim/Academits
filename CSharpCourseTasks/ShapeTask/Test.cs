@@ -24,24 +24,18 @@ namespace ShapeTask
 
         static void Main(string[] args)
         {
-            Circle circle = new Circle(2);
-            Square square = new Square(20);
-            Triangle triangle1 = new Triangle(0, 0, 0, 3, 4, 0);
-            Rectangle rectangle = new Rectangle(2000, 5000);
-            Triangle triagnle2 = new Triangle(-3, 2, 2, 4, 0, 0);
-
             IShape[] shapes =
             {
-                circle,
-                square,
-                triangle1,
-                rectangle,
-                triagnle2
+            new Circle(2),
+            new Square(20),
+            new Triangle(0, 0, 0, 3, 4, 0),
+            new Rectangle(2000, 5000),
+            new Triangle(-3, 2, 2, 4, 0, 0)
             };
 
-            Console.WriteLine(GetMaxAreaShape(shapes).ToString());
+            Console.WriteLine("The shape with the biggest area is " + GetMaxAreaShape(shapes).ToString());
 
-            Console.WriteLine(GetSecondPerimeterShape(shapes).ToString());
+            Console.WriteLine("The shape with the longest perimeter is " + GetSecondPerimeterShape(shapes).ToString());
 
             Console.ReadKey();
         }

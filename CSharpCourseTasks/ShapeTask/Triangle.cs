@@ -89,5 +89,32 @@ namespace ShapeTask
         {
             return side1 + side2 + side3;
         }
+
+        public override string ToString()
+        {
+            return "the triangle with firts side = " + side1 + ", second side = " + side2 + " and third side = " + side3;
+        }
+
+        public override bool Equals(object o)
+        {
+            if (ReferenceEquals(o, this))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(o, null) || o.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            Triangle t = (Triangle)o;
+
+            return (side1 == t.side1) && (side2 == t.side2) && (side3 == t.side3);
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)(side1 * side2 * side3);
+        }
     }
 }

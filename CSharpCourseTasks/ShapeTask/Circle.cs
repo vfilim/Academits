@@ -34,5 +34,32 @@ namespace ShapeTask
         {
             return 2 * Math.PI * Radius;
         }
+
+        public override string ToString()
+        {
+            return "the circle with radius = " + Radius;
+        }
+
+        public override bool Equals(object o)
+        {
+            if (ReferenceEquals(o, this))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(o, null) || o.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            Circle c = (Circle)o;
+
+            return Radius == c.Radius;
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)Radius;
+        }
     }
 }
