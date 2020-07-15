@@ -39,7 +39,7 @@ namespace ShapeTask
                 triagnle2
             };
 
-            Console.WriteLine(GetMaxAreaShape(shapes).ToString())
+            Console.WriteLine(GetMaxAreaShape(shapes).ToString());
 
             Console.WriteLine(GetSecondPerimeterShape(shapes).ToString());
 
