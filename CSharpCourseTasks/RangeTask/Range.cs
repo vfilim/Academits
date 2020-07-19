@@ -9,6 +9,7 @@ namespace RangeTask
     class Range
     {
         public double From { get; set; }
+
         public double To { get; set; }
 
         public Range(double from, double to)
@@ -24,7 +25,7 @@ namespace RangeTask
 
         public bool IsInside(double number)
         {
-            return ((number >= From) && (number <= To));
+            return number >= From && number <= To;
         }
 
         public Range GetIntersection(Range range)
@@ -34,10 +35,7 @@ namespace RangeTask
                 return null;
             }
 
-            double leftPoint = Math.Max(From, range.From);
-            double rightPoint = Math.Min(To, range.To);
-
-            return new Range(leftPoint, rightPoint);
+            return new Range(Math.Max(From, range.From), Math.Min(To, range.To));
         }
 
         public Range[] GetUnion(Range range)
@@ -52,30 +50,27 @@ namespace RangeTask
                 return new Range[] { new Range(range.From, range.To), new Range(From, To) };
             }
 
-            double leftPoint = Math.Min(From, range.From);
-            double rightPoint = Math.Max(To, range.To);
-
-            return new Range[] { new Range(leftPoint, rightPoint) };
+            return new Range[] { new Range(Math.Min(From, range.From), Math.Max(To, range.To)) };
         }
 
         public Range[] GetComplement(Range range)
         {
-            if ((From < range.From) && (To > range.To))
+            if (From < range.From && To > range.To)
             {
                 return new Range[] { new Range(From, range.From), new Range(range.To, To) };
             }
 
-            if ((From >= range.From) && (To <= range.To))
+            if (From >= range.From && To <= range.To)
             {
                 return new Range[] { };
             }
 
-            if ((range.From <= To) && (range.To >= To))
+            if (range.From <= To && range.To >= To)
             {
                 return new Range[] { new Range(From, range.From) };
             }
 
-            if ((From <= range.To) && (To >= range.To))
+            if (From <= range.To && To >= range.To)
             {
                 return new Range[] { new Range(range.To, To) };
             }

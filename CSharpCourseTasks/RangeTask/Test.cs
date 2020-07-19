@@ -25,18 +25,18 @@ namespace RangeTask
             }
             else
             {
-                Console.WriteLine("The intersection is " + intersection.ToString());
+                Console.WriteLine("The intersection is " + intersection);
             }
 
             Range[] union = range1.GetUnion(range2);
 
             if (union.Length > 1)
             {
-                Console.WriteLine("The union is " + union[0].ToString() + " and " + union[1].ToString());
+                Console.WriteLine("The union is " + union[0] + " and " + union[1]);
             }
             else
             {
-                Console.WriteLine("The union is " + union[0].ToString());
+                Console.WriteLine("The union is " + union[0]);
             }
 
             Range[] complement = range1.GetComplement(range2);
@@ -47,11 +47,11 @@ namespace RangeTask
             }
             else if (complement.Length == 1)
             {
-                Console.WriteLine("The complement is " + complement[0].ToString());
+                Console.WriteLine("The complement is " + complement[0]);
             }
             else
             {
-                Console.WriteLine("The complement is " + complement[0].ToString() + " and " + complement[1].ToString());
+                Console.WriteLine("The complement is " + complement[0] + " and " + complement[1]);
             }
 
             Console.ReadLine();
