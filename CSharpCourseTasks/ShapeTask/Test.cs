@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ShapeTask.Shapes;
 
 namespace ShapeTask
 {
@@ -26,16 +23,16 @@ namespace ShapeTask
         {
             IShape[] shapes =
             {
-            new Circle(2),
-            new Square(20),
-            new Triangle(0, 0, 0, 3, 4, 0),
-            new Rectangle(2000, 5000),
-            new Triangle(-3, 2, 2, 4, 0, 0)
+                new Circle(2),
+                new Square(20),
+                new Triangle(0, 0, 0, 3, 4, 0),
+                new Rectangle(2000, 5000),
+                new Triangle(-3, 2, 2, 4, 0, 0)
             };
 
-            Console.WriteLine("The shape with the biggest area is " + GetMaxAreaShape(shapes).ToString());
+            Console.WriteLine("The shape with the biggest area is " + GetMaxAreaShape(shapes));
 
-            Console.WriteLine("The shape with the longest perimeter is " + GetSecondPerimeterShape(shapes).ToString());
+            Console.WriteLine("The shape with the second longest perimeter is " + GetSecondPerimeterShape(shapes));
 
             Console.ReadKey();
         }

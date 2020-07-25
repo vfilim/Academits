@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ShapeTask
+namespace ShapeTask.Shapes
 {
     public class Circle : IShape
     {
@@ -20,7 +16,7 @@ namespace ShapeTask
             return 2 * Radius;
         }
 
-        public double GetHight()
+        public double GetHeight()
         {
             return 2 * Radius;
         }
@@ -47,7 +43,7 @@ namespace ShapeTask
                 return true;
             }
 
-            if (ReferenceEquals(o, null) || o.GetType() != this.GetType())
+            if (ReferenceEquals(o, null) || o.GetType() != GetType())
             {
                 return false;
             }
@@ -59,7 +55,7 @@ namespace ShapeTask
 
         public override int GetHashCode()
         {
-            return (int)Radius;
+            return Radius.GetHashCode();
         }
     }
 }

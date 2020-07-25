@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ShapeTask
+namespace ShapeTask.Shapes
 {
     public class Square : IShape
     {
-        public double SideLength
-        {
-            get;
-            set;
-        }
+        public double SideLength { get; set; }
 
         public Square(double sideLength)
         {
@@ -24,7 +16,7 @@ namespace ShapeTask
             return SideLength;
         }
 
-        public double GetHight()
+        public double GetHeight()
         {
             return SideLength;
         }
@@ -51,7 +43,7 @@ namespace ShapeTask
                 return true;
             }
 
-            if (ReferenceEquals(o, null) || o.GetType() != this.GetType())
+            if (ReferenceEquals(o, null) || o.GetType() != GetType())
             {
                 return false;
             }
@@ -63,7 +55,7 @@ namespace ShapeTask
 
         public override int GetHashCode()
         {
-            return (int)SideLength;
+            return SideLength.GetHashCode();
         }
     }
 }

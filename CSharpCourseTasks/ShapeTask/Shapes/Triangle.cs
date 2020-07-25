@@ -1,52 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ShapeTask
+namespace ShapeTask.Shapes
 {
     public class Triangle : IShape
     {
-        public double X1
-        {
-            get;
-            set;
-        }
+        private double side1;
+        private double side2;
+        private double side3;
 
-        public double Y1
-        {
-            get;
-            set;
-        }
+        public double X1 { get; set; }
 
-        public double X2
-        {
-            get;
-            set;
-        }
+        public double Y1 { get; set; }
 
-        public double Y2
-        {
-            get;
-            set;
-        }
+        public double X2 { get; set; }
 
-        public double X3
-        {
-            get;
-            set;
-        }
+        public double Y2 { get; set; }
 
-        public double Y3
-        {
-            get;
-            set;
-        }
+        public double X3 { get; set; }
 
-        double side1;
-        double side2;
-        double side3;
+        public double Y3 { get; set; }
 
         public Triangle(double x1, double y1, double x2, double y2, double x3, double y3)
         {
@@ -62,6 +34,11 @@ namespace ShapeTask
             side3 = Math.Sqrt(Math.Pow(X3 - X1, 2) + Math.Pow(Y3 - Y1, 2));
         }
 
+        public static double GetSide(double x1, double x2, double y1, double y2)
+        {
+            return Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
+        }
+
         public double GetWidth()
         {
             double leftPoint = Math.Min(Math.Min(X1, X2), X3);
@@ -70,7 +47,7 @@ namespace ShapeTask
             return rightPoint - leftPoint;
         }
 
-        public double GetHight()
+        public double GetHeight()
         {
             double lowerPoint = Math.Min(Math.Min(Y1, Y2), Y3);
             double upperPoint = Math.Max(Math.Max(Y1, Y2), Y3);
@@ -82,12 +59,12 @@ namespace ShapeTask
         {
             double perimeterHalf = GetPerimeter() / 2;
 
-            return Math.Sqrt(perimeterHalf * (perimeterHalf - side1) * (perimeterHalf - side2) * (perimeterHalf - side3));
+            return Math.Sqrt(perimeterHalf * (perimeterHalf - GetSide(X1, X2, Y1, Y2)) * (perimeterHalf - GetSide(X2, X3, Y2, Y3)) * (perimeterHalf - GetSide(X3, X1, Y3, Y1)));
         }
 
         public double GetPerimeter()
         {
-            return side1 + side2 + side3;
+            return GetSide(X1, X2, Y1, Y2) + GetSide(X2, X3, Y2, Y3) + GetSide(X3, X1, Y3, Y1);
         }
 
         public override string ToString()
@@ -102,19 +79,29 @@ namespace ShapeTask
                 return true;
             }
 
-            if (ReferenceEquals(o, null) || o.GetType() != this.GetType())
+            if (ReferenceEquals(o, null) || o.GetType() != GetType())
             {
                 return false;
             }
 
             Triangle t = (Triangle)o;
 
-            return (side1 == t.side1) && (side2 == t.side2) && (side3 == t.side3);
+            return (X1 == t.X1) && (X2 == t.X2) && (X3 == t.X3) && (Y1 == t.Y1) && (Y2 == t.Y2) && (Y3 == t.Y3);
         }
 
         public override int GetHashCode()
         {
-            return (int)(side1 * side2 * side3);
+            int prime = 41;
+            int hash = 1;
+
+            hash = prime * hash + X1.GetHashCode();
+            hash = prime * hash + X2.GetHashCode();
+            hash = prime * hash + X3.GetHashCode();
+            hash = prime * hash + Y1.GetHashCode();
+            hash = prime * hash + Y2.GetHashCode();
+            hash = prime * hash + Y3.GetHashCode();
+
+            return hash;
         }
     }
 }

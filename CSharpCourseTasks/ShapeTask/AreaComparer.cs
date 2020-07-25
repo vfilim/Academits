@@ -1,27 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ShapeTask
 {
     class AreaComparer : IComparer<IShape>
     {
-        public int Compare(IShape sh1, IShape sh2)
+        public int Compare(IShape shape1, IShape shape2)
         {
-            if (sh1.GetArea() > sh2.GetArea())
-            {
-                return 1;
-            }
-            else if (sh1.GetArea() < sh2.GetArea())
-            {
-                return -1;
-            }
-            else
-            {
-                return 0;
-            }
+            return shape1.GetArea().CompareTo(shape2.GetArea());
         }
     }
 }
