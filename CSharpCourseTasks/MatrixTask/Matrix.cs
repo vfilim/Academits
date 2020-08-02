@@ -99,6 +99,27 @@ namespace MatrixTask
             }
         }
 
+        public void MultiplyOnVector(Vector vector)
+        {
+            
+        }
+
+        public void AddMatrix(Matrix matrix)
+        {
+            for (int i = 0; i < Vectors.Length; i++)
+            {
+                Vectors[i].Add(matrix.Vectors[i]);
+            }
+        }
+
+        public void SubtractMatrix(Matrix matrix)
+        {
+            for (int i = 0; i < Vectors.Length; i++)
+            {
+                Vectors[i].Subtract(matrix.Vectors[i]);
+            }
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

@@ -10,12 +10,12 @@ namespace MatrixTask
     {
         static void Main(string[] args)
         {
-            double[,] pp = { { 1, 2, 3 }, { 4, 5, 6 } };
+            double[,] pp = { { 1, 2, }, { 4, 5, }, { 6, 7 } };
 
             Matrix matrix = new Matrix(pp);
             matrix.GetTransposed();
             Console.WriteLine(matrix);
-            
+
             Console.ReadKey();
         }
     }

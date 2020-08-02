@@ -4,10 +4,6 @@ namespace ShapeTask.Shapes
 {
     public class Triangle : IShape
     {
-        private double side1;
-        private double side2;
-        private double side3;
-
         public double X1 { get; set; }
 
         public double Y1 { get; set; }
