@@ -15,7 +15,6 @@ namespace VectorTask
             Vector vector5 = Vector.GetDifference(vector1, vector2);
             Vector vector6 = Vector.GetDifference(vector2, vector1);
 
-
             Console.WriteLine(vector3.ToString() + vector4 + vector5 + vector6 + Vector.GetScalar(vector1, vector2));
 
             Vector wrongVector = new Vector(-3);

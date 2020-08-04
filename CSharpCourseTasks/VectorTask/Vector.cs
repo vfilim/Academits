@@ -15,11 +15,6 @@ namespace VectorTask
             }
 
             coordinates = new double[dimensionsCount];
-
-            for (int i = 0; i < dimensionsCount; i++)
-            {
-                coordinates[i] = 0;
-            }
         }
 
         public Vector(Vector vector)
@@ -28,10 +23,7 @@ namespace VectorTask
 
             coordinates = new double[dimension];
 
-            for (int i = 0; i < dimension; i++)
-            {
-                coordinates[i] = vector.GetCoordinate(i);
-            }
+            vector.coordinates.CopyTo(this.coordinates, 0);
         }
 
         public Vector(params double[] coordinates)
@@ -54,17 +46,7 @@ namespace VectorTask
 
             this.coordinates = new double[Math.Max(dimensionsCount, dimension)];
 
-            for (int i = 0; i < dimension; i++)
-            {
-                if (i > dimensionsCount - 1)
-                {
-                    this.coordinates[i] = 0;
-                }
-                else
-                {
-                    this.coordinates[i] = coordinates[i];
-                }
-            }
+            coordinates.CopyTo(this.coordinates, 0);
         }
 
         public double GetCoordinate(int index)
@@ -81,40 +63,29 @@ namespace VectorTask
         {
             return coordinates.Length;
         }
-        
+
         public void Add(Vector vector)
         {
-            if (coordinates.Length >= vector.GetSize())
+            Vector sum = new Vector(Math.Max(coordinates.Length, vector.GetSize()), coordinates);
+
+            for (int i = 0; i < vector.GetSize(); i++)
             {
-                for (int i = 0; i < vector.GetSize(); i++)
-                {
-                    coordinates[i] += vector.GetCoordinate(i);
-                }
+                sum.SetCoordinate(i, sum.GetCoordinate(i) + vector.GetCoordinate(i));
             }
-            else
-            {
-                double[] newCoordinates = new double[vector.GetSize()];
 
-                for (int i = 0; i < GetSize(); i++)
-                {
-                    newCoordinates[i] = coordinates[i] + vector.GetCoordinate(i);
-                }
-
-                for (int i = GetSize(); i < vector.GetSize(); i++)
-                {
-                    newCoordinates[i] = vector.GetCoordinate(i);
-                }
-
-                coordinates = newCoordinates;
-            }
+            coordinates = sum.coordinates;
         }
 
         public void Subtract(Vector vector)
         {
-            Vector vectorCopy = new Vector(vector);
-            vectorCopy.MultiplyOnNumber(-1);
+            Vector dif = new Vector(Math.Max(coordinates.Length, vector.GetSize()), coordinates);
 
-            Add(vectorCopy);
+            for (int i = 0; i < vector.GetSize(); i++)
+            {
+                dif.SetCoordinate(i, dif.GetCoordinate(i) - vector.GetCoordinate(i));
+            }
+
+            coordinates = dif.coordinates;
         }
 
         public void MultiplyOnNumber(double number)
@@ -164,8 +135,8 @@ namespace VectorTask
         {
             double scalar = 0;
 
-            int smallerVectorSize = Math.Min(vector1.GetSize(), vector2.GetSize()); 
-            
+            int smallerVectorSize = Math.Min(vector1.GetSize(), vector2.GetSize());
+
             for (int i = 0; i < smallerVectorSize; i++)
             {
                 scalar += vector1.GetCoordinate(i) * vector2.GetCoordinate(i);
