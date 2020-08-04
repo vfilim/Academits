@@ -5,32 +5,32 @@ namespace VectorTask
 {
     public class Vector
     {
-        public double[] Coordinates { get; set; }
+        private double[] coordinates;
 
-        public Vector(int n)
+        public Vector(int dimensionsCount)
         {
-            if (n < 0)
+            if (dimensionsCount < 1)
             {
-                throw new ArgumentException("Dimensions count can't be < 0", nameof(n));
+                throw new ArgumentException("Dimensions count can't be < 1", nameof(dimensionsCount));
             }
 
-            Coordinates = new double[n];
+            coordinates = new double[dimensionsCount];
 
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < dimensionsCount; i++)
             {
-                Coordinates[i] = 0;
+                coordinates[i] = 0;
             }
         }
 
         public Vector(Vector vector)
         {
-            int dimension = vector.Coordinates.Length;
+            int dimension = vector.GetSize();
 
-            this.Coordinates = new double[dimension];
+            coordinates = new double[dimension];
 
             for (int i = 0; i < dimension; i++)
             {
-                this.Coordinates[i] = vector.Coordinates[i];
+                coordinates[i] = vector.GetCoordinate(i);
             }
         }
 
@@ -38,68 +38,57 @@ namespace VectorTask
         {
             int dimension = coordinates.Length;
 
-            Coordinates = new double[dimension];
+            this.coordinates = new double[dimension];
 
-            for (int i = 0; i < dimension; i++)
-            {
-                Coordinates[i] = coordinates[i];
-            }
+            coordinates.CopyTo(this.coordinates, 0);
         }
 
-        public Vector(int n, params double[] coordinates)
+        public Vector(int dimensionsCount, params double[] coordinates)
         {
-            if (n < 0)
+            if (dimensionsCount < 1)
             {
-                throw new ArgumentException("Dimensions count can't be < 0", nameof(n));
+                throw new ArgumentException("Dimensions count can't be < 1", nameof(dimensionsCount));
             }
 
             int dimension = coordinates.Length;
 
-            Coordinates = new double[n > dimension ? n : dimension];
+            this.coordinates = new double[Math.Max(dimensionsCount, dimension)];
 
             for (int i = 0; i < dimension; i++)
             {
-                if (i > n - 1)
+                if (i > dimensionsCount - 1)
                 {
-                    Coordinates[i] = 0;
+                    this.coordinates[i] = 0;
                 }
                 else
                 {
-                    Coordinates[i] = coordinates[i];
+                    this.coordinates[i] = coordinates[i];
                 }
             }
+        }
+
+        public double GetCoordinate(int index)
+        {
+            return coordinates[index];
+        }
+
+        public void SetCoordinate(int index, double value)
+        {
+            coordinates[index] = value;
         }
 
         public int GetSize()
         {
-            return Coordinates.Length;
-        }
-
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append("{ ");
-
-            int dimension = Coordinates.Length;
-
-            for (int i = 0; i < dimension - 1; i++)
-            {
-                sb.Append(Coordinates[i] + ", ");
-            }
-
-            sb.Append(Coordinates[dimension - 1] + " }");
-
-            return sb.ToString();
+            return coordinates.Length;
         }
         
         public void Add(Vector vector)
         {
-            if (GetSize() >= vector.GetSize())
+            if (coordinates.Length >= vector.GetSize())
             {
                 for (int i = 0; i < vector.GetSize(); i++)
                 {
-                    Coordinates[i] += vector.Coordinates[i];
+                    coordinates[i] += vector.GetCoordinate(i);
                 }
             }
             else
@@ -108,15 +97,15 @@ namespace VectorTask
 
                 for (int i = 0; i < GetSize(); i++)
                 {
-                    newCoordinates[i] = Coordinates[i] + vector.Coordinates[i];
+                    newCoordinates[i] = coordinates[i] + vector.GetCoordinate(i);
                 }
 
                 for (int i = GetSize(); i < vector.GetSize(); i++)
                 {
-                    newCoordinates[i] = vector.Coordinates[i];
+                    newCoordinates[i] = vector.GetCoordinate(i);
                 }
 
-                Coordinates = newCoordinates;
+                coordinates = newCoordinates;
             }
         }
 
@@ -130,9 +119,9 @@ namespace VectorTask
 
         public void MultiplyOnNumber(double number)
         {
-            for (int i = 0; i < GetSize(); i++)
+            for (int i = 0; i < coordinates.Length; i++)
             {
-                Coordinates[i] *= number;
+                coordinates[i] *= number;
             }
         }
 
@@ -145,9 +134,9 @@ namespace VectorTask
         {
             double lengthSquare = 0;
 
-            for (int i = 0; i < GetSize(); i++)
+            foreach (double c in coordinates)
             {
-                lengthSquare += Math.Pow(Coordinates[i], 2);
+                lengthSquare += Math.Pow(c, 2);
             }
 
             return Math.Sqrt(lengthSquare);
@@ -175,14 +164,34 @@ namespace VectorTask
         {
             double scalar = 0;
 
-            int smallerVectorSize = vector1.GetSize() < vector2.GetSize() ? vector1.GetSize() : vector2.GetSize(); 
+            int smallerVectorSize = Math.Min(vector1.GetSize(), vector2.GetSize()); 
             
             for (int i = 0; i < smallerVectorSize; i++)
             {
-                scalar += vector1.Coordinates[i] * vector2.Coordinates[i];
+                scalar += vector1.GetCoordinate(i) * vector2.GetCoordinate(i);
             }
 
             return scalar;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("{ ");
+
+            int dimension = coordinates.Length;
+
+            for (int i = 0; i < dimension - 1; i++)
+            {
+                sb.Append(coordinates[i]);
+                sb.Append(", ");
+            }
+
+            sb.Append(coordinates[dimension - 1]);
+            sb.Append(" }");
+
+            return sb.ToString();
         }
 
         public override bool Equals(object o)
@@ -199,14 +208,14 @@ namespace VectorTask
 
             Vector v = (Vector)o;
 
-            if (GetSize() != v.GetSize())
+            if (coordinates.Length != v.GetSize())
             {
                 return false;
             }
 
-            for (int i = 0; i < GetSize(); i++)
+            for (int i = 0; i < coordinates.Length; i++)
             {
-                if (Coordinates[i] != v.Coordinates[i])
+                if (coordinates[i] != v.GetCoordinate(i))
                 {
                     return false;
                 }
@@ -217,12 +226,12 @@ namespace VectorTask
 
         public override int GetHashCode()
         {
-            int prime = 27;
+            int prime = 17;
             int hash = 1;
 
-            for (int i = 0; i < GetSize(); i++)
+            foreach (double c in coordinates)
             {
-                hash = prime * hash + Coordinates[i].GetHashCode();
+                hash = prime * hash + c.GetHashCode();
             }
 
             return hash;
