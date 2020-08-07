@@ -24,10 +24,6 @@ namespace ShapeTask.Shapes
             Y2 = y2;
             X3 = x3;
             Y3 = y3;
-
-            side1 = Math.Sqrt(Math.Pow(X2 - X1, 2) + Math.Pow(Y2 - Y1, 2));
-            side2 = Math.Sqrt(Math.Pow(X3 - X2, 2) + Math.Pow(Y3 - Y2, 2));
-            side3 = Math.Sqrt(Math.Pow(X3 - X1, 2) + Math.Pow(Y3 - Y1, 2));
         }
 
         public static double GetSide(double x1, double x2, double y1, double y2)
@@ -65,7 +61,7 @@ namespace ShapeTask.Shapes
 
         public override string ToString()
         {
-            return "the triangle with firts side = " + side1 + ", second side = " + side2 + " and third side = " + side3;
+            return "the triangle with firts side = " + GetSide(X1, X2, Y1, Y2) + ", second side = " + GetSide(X2, X3, Y2, Y3) + " and third side = " + GetSide(X3, X1, Y3, Y1);
         }
 
         public override bool Equals(object o)
