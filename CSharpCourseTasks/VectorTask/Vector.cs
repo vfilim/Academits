@@ -75,7 +75,7 @@ namespace VectorTask
 
             vector.coordinates.CopyTo(newCoordinates, 0);
 
-            for (int i = 0; i < GetSize(); i++)
+            for (int i = 0; i < coordinates.Length; i++)
             {
                 newCoordinates[i] += coordinates[i];
             }
@@ -89,7 +89,7 @@ namespace VectorTask
 
             vector.coordinates.CopyTo(newCoordinates, 0);
 
-            for (int i = 0; i < GetSize(); i++)
+            for (int i = 0; i < coordinates.Length; i++)
             {
                 newCoordinates[i] -= coordinates[i];
             }
