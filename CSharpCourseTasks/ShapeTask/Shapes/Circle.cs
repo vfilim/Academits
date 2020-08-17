@@ -33,7 +33,7 @@ namespace ShapeTask.Shapes
 
         public override string ToString()
         {
-            return "the circle with radius = " + Radius;
+            return "The circle with radius = " + Radius;
         }
 
         public override bool Equals(object o)

@@ -26,7 +26,7 @@ namespace ShapeTask.Shapes
             Y3 = y3;
         }
 
-        public static double GetSide(double x1, double x2, double y1, double y2)
+        private static double GetSide(double x1, double y1, double x2, double y2)
         {
             return Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
         }
@@ -61,7 +61,7 @@ namespace ShapeTask.Shapes
 
         public override string ToString()
         {
-            return "the triangle with firts side = " + GetSide(X1, X2, Y1, Y2) + ", second side = " + GetSide(X2, X3, Y2, Y3) + " and third side = " + GetSide(X3, X1, Y3, Y1);
+            return "The triangle with coordinates (" + X1 + ", " + Y1 + "), (" + X2 + ", " + Y2 + ") and (" + X3 + ", " + Y3 + ")";
         }
 
         public override bool Equals(object o)
@@ -83,7 +83,7 @@ namespace ShapeTask.Shapes
 
         public override int GetHashCode()
         {
-            int prime = 41;
+            int prime = 3;
             int hash = 1;
 
             hash = prime * hash + X1.GetHashCode();

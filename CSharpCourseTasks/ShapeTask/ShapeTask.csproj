@@ -49,7 +49,7 @@
     <Compile Include="Shapes\Rectangle.cs" />
     <Compile Include="Shapes\Triangle.cs" />
     <Compile Include="Shapes\Square.cs" />
-    <Compile Include="IShape.cs" />
+    <Compile Include="Shapes\IShape.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

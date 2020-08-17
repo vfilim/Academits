@@ -33,7 +33,7 @@ namespace ShapeTask.Shapes
 
         public override string ToString()
         {
-            return "the square with side = " + SideLength;
+            return "The square with side = " + SideLength;
         }
 
         public override bool Equals(object o)
