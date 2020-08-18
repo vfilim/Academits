@@ -71,30 +71,36 @@ namespace VectorTask
 
         public void Add(Vector vector)
         {
-            double[] newCoordinates = new double[Math.Max(coordinates.Length, vector.GetSize())];
-
-            vector.coordinates.CopyTo(newCoordinates, 0);
-
-            for (int i = 0; i < coordinates.Length; i++)
+            if (vector.GetSize() > coordinates.Length)
             {
-                newCoordinates[i] += coordinates[i];
+                double[] newCoordinates = new double[vector.GetSize()];
+
+                coordinates.CopyTo(newCoordinates, 0);
+
+                coordinates = newCoordinates;
             }
 
-            coordinates = newCoordinates;
+            for (int i = 0; i < vector.GetSize(); i++)
+            {
+                coordinates[i] += vector.coordinates[i];
+            }
         }
 
         public void Subtract(Vector vector)
         {
-            double[] newCoordinates = new double[Math.Max(coordinates.Length, vector.GetSize())];
-
-            vector.coordinates.CopyTo(newCoordinates, 0);
-
-            for (int i = 0; i < coordinates.Length; i++)
+            if (vector.GetSize() > coordinates.Length)
             {
-                newCoordinates[i] -= coordinates[i];
+                double[] newCoordinates = new double[vector.GetSize()];
+
+                coordinates.CopyTo(newCoordinates, 0);
+
+                coordinates = newCoordinates;
             }
 
-            coordinates = newCoordinates;
+            for (int i = 0; i < vector.GetSize(); i++)
+            {
+                coordinates[i] -= vector.coordinates[i];
+            }
         }
 
         public void MultiplyOnNumber(double number)

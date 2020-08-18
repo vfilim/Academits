@@ -83,7 +83,7 @@ namespace ShapeTask.Shapes
 
         public override int GetHashCode()
         {
-            int prime = 3;
+            int prime = 37;
             int hash = 1;
 
             hash = prime * hash + X1.GetHashCode();
