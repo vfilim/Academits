@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System;
 
 namespace ArrayListHomeTask
 {
@@ -11,26 +12,27 @@ namespace ArrayListHomeTask
             List<string> stringsList = new List<string>();
             string inputPath = "input.txt";
 
-            using (StreamReader reader = new StreamReader(inputPath))
+            try
             {
-                string currentLine;
-
-                while ((currentLine = reader.ReadLine()) != null)
+                using (StreamReader reader = new StreamReader(inputPath))
                 {
-                    stringsList.Add(currentLine);
+                    string currentLine;
+
+                    while ((currentLine = reader.ReadLine()) != null)
+                    {
+                        stringsList.Add(currentLine);
+                        Console.WriteLine(currentLine);
+                    }
                 }
             }
-
-            List<int> intList = new List<int>();
-
-            int upLimit = 10;
-
-            for (int i = 0; i < upLimit; i++)
+            catch (FileNotFoundException e)
             {
-                intList.Add(i);
+                Console.WriteLine("{0} is not found!", inputPath);
             }
 
-            for (int i = intList.Count() - 1; i > -1; i--)
+            List<int> intList = new List<int>() { 6, 24, 63, 22, 34, 7, 15, 66 };
+
+            for (int i = intList.Count - 1; i >= 0; i--)
             {
                 if (intList[i] % 2 == 0)
                 {
@@ -38,17 +40,35 @@ namespace ArrayListHomeTask
                 }
             }
 
+            Console.WriteLine("The first list uneven numbers are:");
+
+            foreach (int i in intList)
+            {
+                Console.WriteLine(i);
+            }
+
             List<int> numbersList = new List<int> { 1, 5, 2, 1, 3, 5 };
 
-            List<int> uniqueNumbersList = new List<int>();
+            int startCapacity = 20;
 
-            for (int i = 0; i < numbersList.Count(); i++)
+            List<int> uniqueNumbersList = new List<int>(startCapacity);
+
+            foreach (int i in numbersList)
             {
-                if (!uniqueNumbersList.Contains(numbersList[i]))
+                if (!uniqueNumbersList.Contains(i))
                 {
-                    uniqueNumbersList.Add(numbersList[i]);
+                    uniqueNumbersList.Add(i);
                 }
             }
+
+            Console.WriteLine("The second list unique numbers are:");
+
+            foreach (int i in uniqueNumbersList)
+            {
+                Console.WriteLine(i);
+            }
+
+            Console.ReadKey();
         }
     }
 }
