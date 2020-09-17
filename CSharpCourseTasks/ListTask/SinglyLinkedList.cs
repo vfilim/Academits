@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
+using System.IO;
 
 namespace ListTask
 {
@@ -10,158 +11,150 @@ namespace ListTask
     {
         private ListItem<T> head;
 
-        private int count;
+        private int Count { get; set; }
 
-        public SinglyLinkedList(ListItem<T> head)
+        public SinglyLinkedList() 
         {
-            this.head = head;
-
-            count = 1;
-
-            for (ListItem<T> i = head; i.GetNext() != null; i = i.GetNext())
-            {
-                count++;
-            }
+            Count = 0;
         }
 
-        public int GetCount()
+        public SinglyLinkedList(T head)
         {
-            return count;
+            this.head = new ListItem<T>(head);
+
+            Count = 1;
         }
 
-        public T GetHeadData()
+        public T GetFirst()
         {
-            return head.GetData();
+            return head.Data;
         }
 
-        public T GetItemData(int index)
+        private ListItem<T> MoveTo(int index)
         {
-            ListItem<T> iterator = head;
+            ListItem<T> currentItem = head;
 
             for (int count = 0; count < index; count++)
             {
-                iterator = iterator.GetNext();
+                currentItem = currentItem.Next;
             }
 
-            return iterator.GetData();
+            return currentItem;
         }
 
-        public T SetItemData(T newData, int index)
+        public T GetData(int index)
         {
-            ListItem<T> iterator = head;
+            return MoveTo(index).Data;
+        }
 
-            for (int count = 0; count < index; count++)
-            {
-                iterator = iterator.GetNext();
-            }
+        public T SetData(T newData, int index)
+        {
+            ListItem<T> item = MoveTo(index);
 
-            T oldData = iterator.GetData();
+            T oldData = item.Data;
 
-            iterator.SetData(newData);
+            item.Data = newData;
 
             return oldData;
         }
 
-        public T RemoveItem(int index)
+        public T Remove(int index)
         {
-            ListItem<T> iterator = head;
+            ListItem<T> previousItem = MoveTo(index - 1);
 
-            for (int count = 0; count < index - 1; count++)
-            {
-                iterator = iterator.GetNext();
-            }
+            T removedData = previousItem.Next.Data;
 
-            T removedItemData = iterator.GetNext().GetData();
+            previousItem.Next = previousItem.Next.Next;
 
-            iterator.SetNext(iterator.GetNext().GetNext());
+            Count--;
 
-            count--;
-
-            return removedItemData;
+            return removedData;
         }
 
-        public void AddHeadData(T data)
+        public void AddFirst(T data)
         {
             ListItem<T> newHead = new ListItem<T>(data, head);
 
-            count++;
+            Count++;
 
             head = newHead;
         }
 
         public void InsertData(T data, int index)
         {
-            ListItem<T> iterator = head;
+            ListItem<T> previousItem = MoveTo(index - 1);
 
-            for (int count = 0; count < index - 1; count++)
-            {
-                iterator = iterator.GetNext();
-            }
+            ListItem<T> newItem = new ListItem<T>(data, previousItem.Next);
 
-            ListItem<T> newItem = new ListItem<T>(data, iterator.GetNext());
+            previousItem.Next = newItem;
 
-            iterator.SetNext(newItem);
-
-            count++;
+            Count++;
         }
 
-        public bool RemoveItemOnData(T data)
+        public bool RemoveByData(T data)
         {
-            ListItem<T> iterator = head;
+            ListItem<T> currentItem = head;
             bool isRemoved = false;
             int index = 0;
 
-            while (isRemoved)
+            while (!isRemoved)
             {
-                if (data.Equals(iterator.GetData()))
+                if (data.Equals(currentItem.Data))
                 {
-                    RemoveItem(index);
+                    Remove(index);
                     isRemoved = true;
 
-                    count--;
+                    Count--;
                 }
 
-                iterator = iterator.GetNext();
+                currentItem = currentItem.Next;
                 index++;
             }
-
 
             return isRemoved;
         }
 
         public T RemoveHead()
         {
-            T headDataCopy = head.GetData();
+            if (Count == 0)
+            {
+                throw new IOException("The list is empty!");
+            }
 
-            head = head.GetNext();
+            T headCopy = head.Data;
 
-            count--;
+            head = head.Next;
 
-            return headDataCopy;
+            Count--;
+
+            return headCopy;
         }
 
-        /*public void Reverse()
+        public void Reverse()
         {
-            ListItem<T>[] itemArray = new ListItem<T>[count];
+            ListItem<T>[] itemArray = new ListItem<T>[Count];
 
-            ListItem<T> iterator = head;
+            ListItem<T> currentItem = head;
 
-            for (int i = 0; i > count; i++)
+            for (int i = 0; i < Count; i++)
             {
-                itemArray[i] = iterator;
+                itemArray[i] = currentItem;
 
-                iterator = iterator.GetNext();
+                currentItem = currentItem.Next;
             }
 
-            iterator = head;
+            currentItem = head;
 
-            for (int i = count - 1; i > -1; i--)
+            for (int i = 0; i < Count; i++)
             {
-                iterator.SetData(itemArray[i].GetData());
-                iterator.SetNext(itemArray[i - 1]);
-
-                iterator.
+                currentItem.Data = itemArray[Count - i].Data;
+                currentItem.Next = itemArray[Count - i - 1];
             }
-        }*/
+        }
+
+        public void CopyTo(SinglyLinkedList<T> list)
+        {
+
+        }
     }
 }

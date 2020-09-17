@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System;
+using System.Data.SqlTypes;
 
 namespace ArrayListHomeTask
 {
@@ -20,7 +21,6 @@ namespace ArrayListHomeTask
                     while ((currentLine = reader.ReadLine()) != null)
                     {
                         stringsList.Add(currentLine);
-                        Console.WriteLine(currentLine);
                     }
                 }
             }
@@ -29,7 +29,12 @@ namespace ArrayListHomeTask
                 Console.WriteLine("{0} is not found!", inputPath);
             }
 
-            List<int> intList = new List<int>() { 6, 24, 63, 22, 34, 7, 15, 66 };
+            foreach (string e in stringsList)
+            {
+                Console.WriteLine(e);
+            }
+
+            List<int> intList = new List<int> { 6, 24, 63, 22, 34, 7, 15, 66 };
 
             for (int i = intList.Count - 1; i >= 0; i--)
             {
@@ -41,30 +46,28 @@ namespace ArrayListHomeTask
 
             Console.WriteLine("The first list uneven numbers are:");
 
-            foreach (int i in intList)
+            foreach (int n in intList)
             {
-                Console.WriteLine(i);
+                Console.WriteLine(n);
             }
 
             List<int> numbersList = new List<int> { 1, 5, 2, 1, 3, 5 };
 
-            int startCapacity = 20;
+            List<int> uniqueNumbersList = new List<int>(numbersList.Count);
 
-            List<int> uniqueNumbersList = new List<int>(startCapacity);
-
-            foreach (int i in numbersList)
+            foreach (int e in numbersList)
             {
-                if (!uniqueNumbersList.Contains(i))
+                if (!uniqueNumbersList.Contains(e))
                 {
-                    uniqueNumbersList.Add(i);
+                    uniqueNumbersList.Add(e);
                 }
             }
 
             Console.WriteLine("The second list unique numbers are:");
 
-            foreach (int i in uniqueNumbersList)
+            foreach (int e in uniqueNumbersList)
             {
-                Console.WriteLine(i);
+                Console.WriteLine(e);
             }
 
             Console.ReadKey();

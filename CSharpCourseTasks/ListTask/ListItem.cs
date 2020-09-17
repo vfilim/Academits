@@ -6,39 +6,19 @@ namespace ListTask
 {
     class ListItem<T>
     {
-        private T data;
+        public T Data { get; set; }
 
-        private ListItem<T> next;
+        public ListItem<T> Next { get; set; }
 
         public ListItem(T data)
         {
-            this.data = data;
+            this.Data = data;
         }
 
         public ListItem(T data, ListItem<T> next)
         {
-            this.data = data;
-            this.next = next;
-        }
-
-        public T GetData()
-        {
-            return data;
-        }
-
-        public void SetData(T newData)
-        {
-            data = newData;
-        }
-
-        public ListItem<T> GetNext()
-        {
-            return next;
-        }
-
-        public void SetNext(ListItem<T> newNext)
-        {
-            next = newNext;
+            this.Data = data;
+            this.Next = next;
         }
     }
 }
