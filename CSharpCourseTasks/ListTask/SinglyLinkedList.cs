@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading;
+using System.Globalization;
 using System.IO;
+using System.Transactions;
 
 namespace ListTask
 {
@@ -11,9 +9,9 @@ namespace ListTask
     {
         private ListItem<T> head;
 
-        private int Count { get; set; }
+        public int Count { get; private set; }
 
-        public SinglyLinkedList() 
+        public SinglyLinkedList()
         {
             Count = 0;
         }
@@ -32,9 +30,14 @@ namespace ListTask
 
         private ListItem<T> MoveTo(int index)
         {
+            if (index < 0)
+            {
+                throw new ArgumentException("The index can't be < 0", nameof(index));
+            }
+
             ListItem<T> currentItem = head;
 
-            for (int count = 0; count < index; count++)
+            for (int i = 0; i < index; i++)
             {
                 currentItem = currentItem.Next;
             }
@@ -60,6 +63,11 @@ namespace ListTask
 
         public T Remove(int index)
         {
+            if (index == 0)
+            {
+                return RemoveHead();
+            }
+
             ListItem<T> previousItem = MoveTo(index - 1);
 
             T removedData = previousItem.Next.Data;
@@ -73,6 +81,11 @@ namespace ListTask
 
         public void AddFirst(T data)
         {
+            if (Count == 0)
+            {
+                head = new ListItem<T>(data);
+            }
+
             ListItem<T> newHead = new ListItem<T>(data, head);
 
             Count++;
@@ -82,6 +95,20 @@ namespace ListTask
 
         public void InsertData(T data, int index)
         {
+            if (index < 0)
+            {
+                throw new ArgumentException("The index can't be < 0", nameof(index));
+            }
+
+            if (index == 0)
+            {
+                ListItem<T> newHead = new ListItem<T>(data, head.Next);
+
+                head = newHead;
+
+                return;
+            }
+
             ListItem<T> previousItem = MoveTo(index - 1);
 
             ListItem<T> newItem = new ListItem<T>(data, previousItem.Next);
@@ -95,20 +122,38 @@ namespace ListTask
         {
             ListItem<T> currentItem = head;
             bool isRemoved = false;
-            int index = 0;
 
-            while (!isRemoved)
+            Func<bool> IsEqual = delegate ()
             {
+                if (data == null)
+                {
+                    if (currentItem.Data == null)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+
                 if (data.Equals(currentItem.Data))
                 {
-                    Remove(index);
+                    return true;
+                }
+
+                return false;
+            };
+
+            for (int i = 0; i < Count; i++)
+            {
+                if (IsEqual())
+                {
+                    Remove(i);
                     isRemoved = true;
 
-                    Count--;
+                    break;
                 }
 
                 currentItem = currentItem.Next;
-                index++;
             }
 
             return isRemoved;
@@ -132,13 +177,13 @@ namespace ListTask
 
         public void Reverse()
         {
-            ListItem<T>[] itemArray = new ListItem<T>[Count];
+            T[] dataArray = new T[Count];
 
             ListItem<T> currentItem = head;
 
             for (int i = 0; i < Count; i++)
             {
-                itemArray[i] = currentItem;
+                dataArray[i] = currentItem.Data;
 
                 currentItem = currentItem.Next;
             }
@@ -147,14 +192,28 @@ namespace ListTask
 
             for (int i = 0; i < Count; i++)
             {
-                currentItem.Data = itemArray[Count - i].Data;
-                currentItem.Next = itemArray[Count - i - 1];
+                currentItem.Data = dataArray[Count - i - 1];
+
+                currentItem = currentItem.Next;
             }
         }
 
-        public void CopyTo(SinglyLinkedList<T> list)
+        public SinglyLinkedList<T> GetCopy()
         {
+            ListItem<T> currentItem = head;
 
+            SinglyLinkedList<T> listCopy = new SinglyLinkedList<T>();
+
+            for (int i = 0; i < Count; i++)
+            {
+                listCopy.AddFirst(currentItem.Data);
+
+                currentItem = currentItem.Next;
+            }
+
+            listCopy.Reverse();
+
+            return listCopy;
         }
     }
 }

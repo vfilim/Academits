@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ListTask
+﻿namespace ListTask
 {
     class ListItem<T>
     {
@@ -12,13 +8,13 @@ namespace ListTask
 
         public ListItem(T data)
         {
-            this.Data = data;
+            Data = data;
         }
 
         public ListItem(T data, ListItem<T> next)
         {
-            this.Data = data;
-            this.Next = next;
+            Data = data;
+            Next = next;
         }
     }
 }
