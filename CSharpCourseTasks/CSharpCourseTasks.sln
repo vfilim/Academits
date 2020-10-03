@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListTask", "ListTask\ListTa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LambdasTask", "Lambdas\LambdasTask.csproj", "{4F58188E-996A-46D6-B134-48266D8094B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArrayListTask", "ArrayListTask\ArrayListTask.csproj", "{C6B28F8C-D09D-4D25-8E24-20FD39D9B14B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{4F58188E-996A-46D6-B134-48266D8094B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F58188E-996A-46D6-B134-48266D8094B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F58188E-996A-46D6-B134-48266D8094B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6B28F8C-D09D-4D25-8E24-20FD39D9B14B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6B28F8C-D09D-4D25-8E24-20FD39D9B14B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6B28F8C-D09D-4D25-8E24-20FD39D9B14B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6B28F8C-D09D-4D25-8E24-20FD39D9B14B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

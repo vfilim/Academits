@@ -1,4 +1,6 @@
-﻿namespace Lambdas
+﻿using System;
+
+namespace Lambdas
 {
     class Person
     {
@@ -7,9 +9,20 @@
         public int Age { get; private set; }
 
         public Person(string name, int age)
-        {
+        {   
             Name = name;
-            Age = age;
+
+            try
+            {
+                if (age < 0)
+                {
+                    throw new ArgumentException("The age can't be < 0, now it is " + age, nameof(age));
+                }
+
+                Age = age;
+            }
+            catch(ArgumentException e)
+            { }
         }
     }
 }
