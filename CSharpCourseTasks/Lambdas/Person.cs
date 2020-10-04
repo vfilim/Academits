@@ -9,20 +9,15 @@ namespace Lambdas
         public int Age { get; private set; }
 
         public Person(string name, int age)
-        {   
+        {
             Name = name;
 
-            try
+            if (age < 0)
             {
-                if (age < 0)
-                {
-                    throw new ArgumentException("The age can't be < 0, now it is " + age, nameof(age));
-                }
-
-                Age = age;
+                throw new ArgumentException("The age can't be < 0, now it is " + age, nameof(age));
             }
-            catch(ArgumentException e)
-            { }
+
+            Age = age;
         }
     }
 }
